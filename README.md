@@ -14,6 +14,25 @@ Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs
 | Imanol Antonio De la Cruz | 3523110651 |
 | Osbaldo Alvarez Martinez | 3523110279 |
 
+## Entregables
+
+| # | Entregable solicitado | Dónde está |
+|---|---|---|
+| 1 | Repositorio con código funcional e instrucciones de ejecución | Este README ([Instalación y ejecución](#instalación-y-ejecución)) · código en [`src/`](src) · 91 pruebas automáticas en [`tests/`](tests) |
+| 2 | Evidencia de ejecución de ambos motores | [`results/evidence/api-evidence-gemini.md`](results/evidence/api-evidence-gemini.md) (peticiones HTTP reales, ambos motores + 9 casos de error) · [`api-evidence-ollama.md`](results/evidence/api-evidence-ollama.md) (mismo set con modelo local) · [`tests.txt`](results/evidence/tests.txt) (salida de `npm test`) |
+| 3 | Evidencia de al menos 10 casos de prueba comparativos | [`results/results.md`](results/results.md): 17 casos (9 normales, 5 ambiguos, 3 adversariales) × 2 motores · datos crudos en [`results/comparison.json`](results/comparison.json) · referencia en [`tests/cases.json`](tests/cases.json) |
+| 4 | Tabla de resultados y conclusión técnica (≤ 150 palabras) | [Resultados y conclusión](#resultados-y-conclusión) |
+
+### Cumplimiento de requerimientos
+
+| Requerimiento | Implementación |
+|---|---|
+| R1. Motor tradicional (4 categorías, 4 prioridades, respuesta predeterminada, sin LLM) | [`src/engines/traditional/index.js`](src/engines/traditional/index.js): diccionarios con pesos y raíces, prioridad base + modificadores, respuestas por categoría y prioridad |
+| R2. Motor generativo (interpreta, clasifica, prioriza, responde, JSON) | [`src/engines/generative/`](src/engines/generative): Gemini (`gemini-3.5-flash-lite`) u Ollama (`qwen2.5:3b`) con salida JSON estructurada |
+| R3. API `POST /api/analyze` con `mode` y contrato común | [`src/app.js`](src/app.js) + [`src/contract.js`](src/contract.js): ambos motores pasan por el mismo schema de respuesta |
+| R4. Validación y seguridad | Validación Zod de entrada, validación de la salida del LLM con reintento, errores 4xx/5xx sin detalles internos, redacción de secretos, defensa contra prompt injection y revisión humana obligatoria en seguridad ([`src/security.js`](src/security.js)) |
+| R5. Pruebas comparativas con % de aciertos | [`scripts/compare.js`](scripts/compare.js) → [`results/results.md`](results/results.md) |
+
 ## Requisitos
 
 - Node.js ≥ 22
