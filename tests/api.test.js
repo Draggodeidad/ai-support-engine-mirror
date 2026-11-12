@@ -69,3 +69,15 @@ describe('política de seguridad en la API', () => {
     expect(res.body).toMatchObject({ category: 'SECURITY', priority: 'HIGH', requiresHumanReview: true });
   });
 });
+
+describe('respuesta segura en la API', () => {
+  it('no devuelve un texto del modelo que pide la contraseña', async () => {
+    const app = createApp({
+      getEngine: fakeEngine({ category: 'ACCESS', priority: 'MEDIUM', response: 'Por favor, proporciona la contraseña completa.', requiresHumanReview: false }),
+    });
+    const res = await request(app).post('/api/analyze').send({ message: 'No puedo iniciar sesión', mode: 'generative' });
+    expect(res.status).toBe(200);
+    expect(res.body.response).not.toMatch(/proporciona la contrase/i);
+    expect(res.body.requiresHumanReview).toBe(true);
+  });
+});

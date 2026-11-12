@@ -43,7 +43,10 @@ const INJECTION_PATTERNS = [
   /olvida(?:r)? (?:todas? )?(?:las |tus )?(?:instrucciones|reglas)/,
   /ignore (?:all |any )?(?:previous|prior|above) (?:instructions|rules)/,
   /disregard (?:all |the )?(?:previous|prior|above)/,
-  /(?:clasifica|marca|categoriza|asigna)(?:la|lo|le)? (?:esta|este|esto|la|el)?\s*\w* ?(?:como|con) (?:prioridad|categoria|low|medium|high|critical|access|bug|feature|security|baja|media|alta)/,
+  /(?:clasifica|marca|categoriza|asigna)(?:la|lo|le)?\b[^.]{0,40}?\b(?:como|con) (?:prioridad|categoria|low|medium|high|critical|access|bug|feature|security|baja|media|alta)/,
+  /olvida(?:r)? (?:todo|lo anterior)/,
+  /\b(?:prioridad|priority|categoria|category)\s*[:=]?\s*(?:low|medium|high|critical|access|bug|feature|security)\b/,
+  /\bsin revision(?: humana)?\b/,
   /(?:prioridad|priority) (?:baja|low)(?: por favor)?[,.]? (?:aunque|aun si|even if)/,
   /\b(?:system prompt|prompt del sistema|instrucciones del sistema)\b/,
   /(?:actua|actuar|act) (?:como|as) (?:si|if|un|una|an?)\b/,
@@ -63,13 +66,37 @@ export function detectPromptInjection(message) {
   return INJECTION_PATTERNS.some((re) => re.test(n));
 }
 
+// Respuestas que piden al usuario una contraseña, token o código (nunca deben enviarse).
+// Se ignoran las frases negadas ("no comparta su contraseña", "sin compartir su clave").
+const CREDENTIAL_REQUEST =
+  /\b(proporciona(?:nos)?|proporcione(?:nos)?|envia(?:nos)?|envie(?:nos)?|enviar|comparte|comparta|compartir|indica(?:nos)?|indique(?:nos)?|escribe|escriba|facilita|facilite|dame|danos|confirma|confirme|ingresa|ingrese)\b[^.,;:?!]{0,40}?\b(contrasena|password|clave|codigo de verificacion|token|pin)\b/g;
+const NEGATION_BEFORE = /\b(no|nunca|jamas|sin|ni)\s+(?:\w+\s+)?$/;
+
+export function detectCredentialRequest(response) {
+  const n = normalize(response);
+  for (const m of n.matchAll(CREDENTIAL_REQUEST)) {
+    const negated = NEGATION_BEFORE.test(n.slice(Math.max(0, m.index - 20), m.index)) || /\b(no|nunca|jamas|sin)\b/.test(m[0]);
+    if (!negated) return true;
+  }
+  return false;
+}
+
+// Textos fijos que sustituyen una respuesta comprometida. No dependen del modelo.
+export const SAFE_RESPONSES = {
+  promptInjection:
+    'Hemos recibido su solicitud y la escalamos a un agente para revisión humana. La clasificación no puede modificarse desde el mensaje y nunca le pediremos su contraseña.',
+  credentialRequest:
+    'Un agente revisará su caso y le indicará los siguientes pasos. Por su seguridad, nunca comparta su contraseña, tokens ni códigos de verificación con nadie, incluido nuestro equipo.',
+};
+
 const PRIORITY_ORDER = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 const atLeast = (priority, min) =>
   PRIORITY_ORDER.indexOf(priority) >= PRIORITY_ORDER.indexOf(min) ? priority : min;
 
 /**
  * Política final aplicada a la salida de cualquier motor.
- * No cambia la categoría (eso es decisión del motor); solo endurece revisión y prioridad.
+ * No cambia la categoría (eso es decisión del motor); endurece revisión y prioridad y
+ * sustituye el texto de la respuesta si pudo ser manipulado o pide credenciales.
  * Devuelve { result, flags } donde flags explica qué ajustó la política.
  */
 export function applySecurityPolicy(message, engineResult) {
@@ -89,6 +116,18 @@ export function applySecurityPolicy(message, engineResult) {
   const mustReview = result.category === 'SECURITY' || flags.securityIndicators || flags.promptInjection;
   if (mustReview && !result.requiresHumanReview) {
     flags.adjusted.push('requiresHumanReview false->true');
+    result.requiresHumanReview = true;
+  }
+
+  // Si hubo intento de manipulación, el texto del modelo puede reflejarla
+  // (p. ej. "se clasificará con prioridad baja"): se usa una respuesta fija.
+  if (flags.promptInjection) {
+    if (result.response !== SAFE_RESPONSES.promptInjection) flags.adjusted.push('response replaced (prompt injection)');
+    result.response = SAFE_RESPONSES.promptInjection;
+  } else if (detectCredentialRequest(result.response)) {
+    // Nunca se pide al usuario una contraseña, token o código.
+    flags.adjusted.push('response replaced (credential request)');
+    result.response = SAFE_RESPONSES.credentialRequest;
     result.requiresHumanReview = true;
   }
 
