@@ -7,6 +7,12 @@ Prototipo de clasificación inteligente de solicitudes de soporte con dos motore
 
 Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs/TAREAS.md`](docs/TAREAS.md)
 
+## Equipo
+
+| Integrante | Matrícula |
+|---|---|
+| Imanol Antonio De la Cruz | 3523110651 |
+| Osbaldo Alvarez Martinez | 3523110279 |
 
 ## Requisitos
 
