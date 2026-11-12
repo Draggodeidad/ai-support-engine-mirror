@@ -12,7 +12,8 @@
     "start": "node --env-file-if-exists=.env src/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "compare": "node --env-file-if-exists=.env scripts/compare.js"
+    "compare": "node --env-file-if-exists=.env scripts/compare.js",
+    "evidence": "node --env-file-if-exists=.env scripts/evidence.js"
   },
   "license": "MIT",
   "dependencies": {
