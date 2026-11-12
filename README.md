@@ -19,11 +19,11 @@ Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs
 |---|---|---|
 | `LLM_PROVIDER` | `gemini` | `gemini` o `ollama` |
 | `GEMINI_API_KEY` | — | Key de Google AI Studio (nunca se versiona) |
-| `GEMINI_MODEL` | `gemini-3.5-flash` | Modelo Gemini |
+| `GEMINI_MODEL` | `gemini-3.5-flash-lite` | Modelo Gemini (mayor cuota en el plan gratuito) |
 | `OLLAMA_HOST` | `http://localhost:11434` | Servidor Ollama |
 | `OLLAMA_MODEL` | `qwen2.5:3b` | Modelo local |
 | `LLM_TIMEOUT_MS` | `30000` | Timeout por llamada al LLM |
-| `COMPARE_DELAY_MS` | `4000` (gemini) | Pausa entre llamadas en `npm run compare` (límite del plan gratuito) |
+| `COMPARE_DELAY_MS` | `13000` (gemini) | Pausa entre llamadas en `npm run compare` (límite del plan gratuito) |
 
 ## Instalación y ejecución
 
