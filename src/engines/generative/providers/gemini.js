@@ -1,7 +1,7 @@
 // Proveedor Gemini (Google AI Studio) con salida JSON estructurada.
 import { GoogleGenAI } from '@google/genai';
 
-export function createGeminiProvider({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMINI_MODEL || 'gemini-3.5-flash' } = {}) {
+export function createGeminiProvider({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite' } = {}) {
   if (!apiKey) return null;
   const ai = new GoogleGenAI({ apiKey });
 
