@@ -15,8 +15,8 @@ Ramas: `feat/generative-engine` (Draggodeidad), `feat/traditional-engine` (osbal
 
 ### Setup
 ```bash
-git clone https://github.com/Draggodeidad/ai-support-engine.git
-cd ai-support-engine && npm install
+git clone https://github.com/Draggodeidad/ai-support-engine-mirror.git
+cd ai-support-engine-mirror && npm install
 git checkout -b feat/traditional-engine
 npm test        # debe pasar
 ```
