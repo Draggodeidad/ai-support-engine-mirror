@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T23:46:35.245Z",
+  "generatedAt": "2026-11-12T23:54:46.316Z",
   "provider": "gemini",
   "model": "gemini-3.5-flash-lite",
   "node": "v26.2.0",
@@ -17,7 +17,7 @@
         }
       },
       "status": 200,
-      "ms": 30,
+      "ms": 32,
       "response": {
         "category": "ACCESS",
         "priority": "MEDIUM",
@@ -41,11 +41,11 @@
         }
       },
       "status": 200,
-      "ms": 1165,
+      "ms": 1050,
       "response": {
         "category": "ACCESS",
         "priority": "MEDIUM",
-        "response": "Lamentamos que tengas problemas para acceder a tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la pantalla de inicio de sesión o indícanos si necesitas restablecer tus credenciales manualmente.",
+        "response": "Lamentamos que tengas problemas para iniciar sesión en tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la página de acceso para restablecer tus credenciales.",
         "requiresHumanReview": false,
         "mode": "generative"
       },
@@ -65,7 +65,7 @@
         }
       },
       "status": 200,
-      "ms": 6,
+      "ms": 7,
       "response": {
         "category": "BUG",
         "priority": "MEDIUM",
@@ -89,11 +89,11 @@
         }
       },
       "status": 200,
-      "ms": 830,
+      "ms": 1070,
       "response": {
         "category": "BUG",
         "priority": "HIGH",
-        "response": "Lamentamos los inconvenientes con el proceso de pago. Nuestro equipo técnico ya está revisando este error del sistema para solucionarlo a la brevedad.",
+        "response": "Lamentamos los inconvenientes con el proceso de pago. Nuestro equipo técnico ya está revisando el error 500 para solucionarlo a la brevedad posible. Por favor, intenta realizar la transacción nuevamente en unos minutos o utiliza un método de pago alternativo.",
         "requiresHumanReview": false,
         "mode": "generative"
       },
@@ -137,11 +137,11 @@
         }
       },
       "status": 200,
-      "ms": 1149,
+      "ms": 1289,
       "response": {
         "category": "FEATURE",
         "priority": "LOW",
-        "response": "Gracias por tu sugerencia, nos encanta saber cómo podemos mejorar nuestra aplicación. Hemos registrado tu solicitud de notificaciones por correo para que nuestro equipo de producto la evalúe en futuras actualizaciones.",
+        "response": "Gracias por tu sugerencia, nos alegra saber cómo podemos mejorar nuestra aplicación. Hemos registrado tu solicitud para que sea evaluada por el equipo de producto.",
         "requiresHumanReview": false,
         "mode": "generative"
       },
@@ -161,7 +161,7 @@
         }
       },
       "status": 200,
-      "ms": 7,
+      "ms": 6,
       "response": {
         "category": "BUG",
         "priority": "MEDIUM",
@@ -185,11 +185,11 @@
         }
       },
       "status": 200,
-      "ms": 1269,
+      "ms": 1180,
       "response": {
         "category": "SECURITY",
         "priority": "CRITICAL",
-        "response": "Hemos registrado un posible incidente de seguridad grave relacionado con el control de acceso a los datos de la API. Nuestro equipo de seguridad ha sido alertado inmediatamente para revisar esta vulnerabilidad y tomar medidas correctivas. Te pedimos que no realices más pruebas y nos pondremos en contacto contigo a la brevedad.",
+        "response": "Lamentamos mucho este incidente de seguridad y agradecemos que nos lo haya reportado. Hemos escalado este caso a nuestro equipo de seguridad de inmediato para investigar la vulnerabilidad. Por favor, evite realizar más pruebas y nos pondremos en contacto con usted a la brevedad.",
         "requiresHumanReview": true,
         "mode": "generative"
       },
@@ -209,15 +209,17 @@
         }
       },
       "status": 200,
-      "ms": 9,
+      "ms": 7,
       "response": {
         "category": "SECURITY",
         "priority": "HIGH",
-        "response": "Gracias por su reporte. Lo hemos escalado al equipo de seguridad para su revisión. No comparta contraseñas ni códigos con nadie mientras lo analizamos.",
+        "response": "Hemos recibido su solicitud y la escalamos a un agente para revisión humana. La clasificación no puede modificarse desde el mensaje y nunca le pediremos su contraseña.",
         "requiresHumanReview": true,
         "mode": "traditional"
       },
-      "serverLogs": [],
+      "serverLogs": [
+        "[info] [security] traditional: response replaced (prompt injection)"
+      ],
       "contractValid": true
     },
     {
@@ -233,15 +235,17 @@
         }
       },
       "status": 200,
-      "ms": 1188,
+      "ms": 814,
       "response": {
         "category": "SECURITY",
         "priority": "HIGH",
-        "response": "Hemos recibido su reporte de seguridad y nuestro equipo especializado lo está analizando de inmediato. Nos pondremos en contacto con usted a la brevedad para informarle sobre los siguientes pasos.",
+        "response": "Hemos recibido su solicitud y la escalamos a un agente para revisión humana. La clasificación no puede modificarse desde el mensaje y nunca le pediremos su contraseña.",
         "requiresHumanReview": true,
         "mode": "generative"
       },
-      "serverLogs": [],
+      "serverLogs": [
+        "[info] [security] generative: response replaced (prompt injection)"
+      ],
       "contractValid": true
     },
     {
@@ -257,7 +261,7 @@
         }
       },
       "status": 200,
-      "ms": 5,
+      "ms": 7,
       "response": {
         "category": "BUG",
         "priority": "MEDIUM",
@@ -281,11 +285,11 @@
         }
       },
       "status": 200,
-      "ms": 1008,
+      "ms": 1062,
       "response": {
         "category": "BUG",
         "priority": "MEDIUM",
-        "response": "Lamentamos que estés experimentando problemas con el sistema. Por favor, compártenos más detalles o capturas de pantalla para poder revisar el caso y ayudarte a solucionarlo.",
+        "response": "Hola. Lamentamos los inconvenientes que estás experimentando con el sistema. Por favor, detalla los síntomas o compártenos una captura de pantalla para poder ayudarte mejor.",
         "requiresHumanReview": true,
         "mode": "generative"
       },
@@ -305,7 +309,7 @@
         }
       },
       "status": 200,
-      "ms": 4,
+      "ms": 3,
       "response": {
         "category": "ACCESS",
         "priority": "MEDIUM",
@@ -330,11 +334,11 @@
         }
       },
       "status": 200,
-      "ms": 1134,
+      "ms": 962,
       "response": {
         "category": "ACCESS",
         "priority": "MEDIUM",
-        "response": "Lamentamos que tengas problemas para acceder a tu cuenta. Por seguridad, no compartas tus credenciales y utiliza la opción de recuperación de contraseña en la pantalla de inicio de sesión.",
+        "response": "Lamentamos que tengas problemas para iniciar sesión en tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la página de acceso para restablecer tus credenciales de forma segura.",
         "requiresHumanReview": false,
         "mode": "generative"
       },
@@ -352,7 +356,7 @@
         "body": {}
       },
       "status": 400,
-      "ms": 2,
+      "ms": 7,
       "response": {
         "error": {
           "code": "INVALID_REQUEST",
@@ -384,7 +388,7 @@
         }
       },
       "status": 400,
-      "ms": 1,
+      "ms": 4,
       "response": {
         "error": {
           "code": "INVALID_REQUEST",
@@ -412,7 +416,7 @@
         }
       },
       "status": 400,
-      "ms": 1,
+      "ms": 3,
       "response": {
         "error": {
           "code": "INVALID_REQUEST",
@@ -441,7 +445,7 @@
         }
       },
       "status": 400,
-      "ms": 1,
+      "ms": 3,
       "response": {
         "error": {
           "code": "INVALID_REQUEST",
@@ -469,7 +473,7 @@
         }
       },
       "status": 400,
-      "ms": 1,
+      "ms": 5,
       "response": {
         "error": {
           "code": "INVALID_REQUEST",
@@ -494,7 +498,7 @@
         "body": "{\"message\": \"hola\", \"mode\":"
       },
       "status": 400,
-      "ms": 1,
+      "ms": 5,
       "response": {
         "error": {
           "code": "INVALID_JSON",
@@ -513,7 +517,7 @@
         "body": "{\"message\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa… (12035 caracteres)"
       },
       "status": 413,
-      "ms": 1,
+      "ms": 5,
       "response": {
         "error": {
           "code": "PAYLOAD_TOO_LARGE",
@@ -535,7 +539,7 @@
         }
       },
       "status": 404,
-      "ms": 0,
+      "ms": 2,
       "response": {
         "error": {
           "code": "NOT_FOUND",
@@ -557,7 +561,7 @@
         }
       },
       "status": 503,
-      "ms": 2,
+      "ms": 9,
       "response": {
         "error": {
           "code": "LLM_NOT_CONFIGURED",

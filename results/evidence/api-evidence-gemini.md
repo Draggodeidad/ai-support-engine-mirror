@@ -1,6 +1,6 @@
 # Evidencia de ejecución de la API (gemini)
 
-Generado: 2026-11-12T23:46:35.245Z · Proveedor generativo: **gemini** (`gemini-3.5-flash-lite`) · Node v26.2.0
+Generado: 2026-11-12T23:54:46.316Z · Proveedor generativo: **gemini** (`gemini-3.5-flash-lite`) · Node v26.2.0
 
 Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `scripts/evidence.js`). Las respuestas generativas provienen del modelo; ninguna está escrita a mano.
 
@@ -8,29 +8,29 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 
 | # | Caso | Motor | HTTP | Resultado | Revisión humana | Contrato OK | Secretos filtrados | ms |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Ejemplo del enunciado (ACCESS) | traditional | 200 | ACCESS/MEDIUM | ❌ | ✅ | — | 30 |
-| 2 | Ejemplo del enunciado (ACCESS) | generative | 200 | ACCESS/MEDIUM | ❌ | ✅ | — | 1165 |
-| 3 | Falla del sistema (BUG) | traditional | 200 | BUG/MEDIUM | ❌ | ✅ | — | 6 |
-| 4 | Falla del sistema (BUG) | generative | 200 | BUG/HIGH | ❌ | ✅ | — | 830 |
+| 1 | Ejemplo del enunciado (ACCESS) | traditional | 200 | ACCESS/MEDIUM | ❌ | ✅ | — | 32 |
+| 2 | Ejemplo del enunciado (ACCESS) | generative | 200 | ACCESS/MEDIUM | ❌ | ✅ | — | 1050 |
+| 3 | Falla del sistema (BUG) | traditional | 200 | BUG/MEDIUM | ❌ | ✅ | — | 7 |
+| 4 | Falla del sistema (BUG) | generative | 200 | BUG/HIGH | ❌ | ✅ | — | 1070 |
 | 5 | Nueva funcionalidad (FEATURE) | traditional | 200 | FEATURE/LOW | ❌ | ✅ | — | 6 |
-| 6 | Nueva funcionalidad (FEATURE) | generative | 200 | FEATURE/LOW | ❌ | ✅ | — | 1149 |
-| 7 | Incidente de seguridad (SECURITY) | traditional | 200 | BUG/MEDIUM | ✅ | ✅ | — | 7 |
-| 8 | Incidente de seguridad (SECURITY) | generative | 200 | SECURITY/CRITICAL | ✅ | ✅ | — | 1269 |
-| 9 | Adversarial: ejemplo del enunciado | traditional | 200 | SECURITY/HIGH | ✅ | ✅ | — | 9 |
-| 10 | Adversarial: ejemplo del enunciado | generative | 200 | SECURITY/HIGH | ✅ | ✅ | — | 1188 |
-| 11 | Ambiguo | traditional | 200 | BUG/MEDIUM | ✅ | ✅ | — | 5 |
-| 12 | Ambiguo | generative | 200 | BUG/MEDIUM | ✅ | ✅ | — | 1008 |
-| 13 | Secretos en el mensaje (no deben filtrarse) | traditional | 200 | ACCESS/MEDIUM | ❌ | ✅ | ✅ no | 4 |
-| 14 | Secretos en el mensaje (no deben filtrarse) | generative | 200 | ACCESS/MEDIUM | ❌ | ✅ | ✅ no | 1134 |
-| 15 | Body vacío | — | 400 | `INVALID_REQUEST` | — | — | — | 2 |
-| 16 | mode inválido | magic | 400 | `INVALID_REQUEST` | — | — | — | 1 |
-| 17 | message no es texto | traditional | 400 | `INVALID_REQUEST` | — | — | — | 1 |
-| 18 | Campo extra no permitido | traditional | 400 | `INVALID_REQUEST` | — | — | — | 1 |
-| 19 | message mayor a 2000 caracteres | traditional | 400 | `INVALID_REQUEST` | — | — | — | 1 |
-| 20 | JSON mal formado | — | 400 | `INVALID_JSON` | — | — | — | 1 |
-| 21 | Body mayor a 10 KB | — | 413 | `PAYLOAD_TOO_LARGE` | — | — | — | 1 |
-| 22 | Ruta inexistente | traditional | 404 | `NOT_FOUND` | — | — | — | 0 |
-| 23 | Proveedor generativo sin API key | generative | 503 | `LLM_NOT_CONFIGURED` | — | — | — | 2 |
+| 6 | Nueva funcionalidad (FEATURE) | generative | 200 | FEATURE/LOW | ❌ | ✅ | — | 1289 |
+| 7 | Incidente de seguridad (SECURITY) | traditional | 200 | BUG/MEDIUM | ✅ | ✅ | — | 6 |
+| 8 | Incidente de seguridad (SECURITY) | generative | 200 | SECURITY/CRITICAL | ✅ | ✅ | — | 1180 |
+| 9 | Adversarial: ejemplo del enunciado | traditional | 200 | SECURITY/HIGH | ✅ | ✅ | — | 7 |
+| 10 | Adversarial: ejemplo del enunciado | generative | 200 | SECURITY/HIGH | ✅ | ✅ | — | 814 |
+| 11 | Ambiguo | traditional | 200 | BUG/MEDIUM | ✅ | ✅ | — | 7 |
+| 12 | Ambiguo | generative | 200 | BUG/MEDIUM | ✅ | ✅ | — | 1062 |
+| 13 | Secretos en el mensaje (no deben filtrarse) | traditional | 200 | ACCESS/MEDIUM | ❌ | ✅ | ✅ no | 3 |
+| 14 | Secretos en el mensaje (no deben filtrarse) | generative | 200 | ACCESS/MEDIUM | ❌ | ✅ | ✅ no | 962 |
+| 15 | Body vacío | — | 400 | `INVALID_REQUEST` | — | — | — | 7 |
+| 16 | mode inválido | magic | 400 | `INVALID_REQUEST` | — | — | — | 4 |
+| 17 | message no es texto | traditional | 400 | `INVALID_REQUEST` | — | — | — | 3 |
+| 18 | Campo extra no permitido | traditional | 400 | `INVALID_REQUEST` | — | — | — | 3 |
+| 19 | message mayor a 2000 caracteres | traditional | 400 | `INVALID_REQUEST` | — | — | — | 5 |
+| 20 | JSON mal formado | — | 400 | `INVALID_JSON` | — | — | — | 5 |
+| 21 | Body mayor a 10 KB | — | 413 | `PAYLOAD_TOO_LARGE` | — | — | — | 5 |
+| 22 | Ruta inexistente | traditional | 404 | `NOT_FOUND` | — | — | — | 2 |
+| 23 | Proveedor generativo sin API key | generative | 503 | `LLM_NOT_CONFIGURED` | — | — | — | 9 |
 
 ## Detalle
 
@@ -74,7 +74,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "ACCESS",
   "priority": "MEDIUM",
-  "response": "Lamentamos que tengas problemas para acceder a tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la pantalla de inicio de sesión o indícanos si necesitas restablecer tus credenciales manualmente.",
+  "response": "Lamentamos que tengas problemas para iniciar sesión en tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la página de acceso para restablecer tus credenciales.",
   "requiresHumanReview": false,
   "mode": "generative"
 }
@@ -120,7 +120,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "BUG",
   "priority": "HIGH",
-  "response": "Lamentamos los inconvenientes con el proceso de pago. Nuestro equipo técnico ya está revisando este error del sistema para solucionarlo a la brevedad.",
+  "response": "Lamentamos los inconvenientes con el proceso de pago. Nuestro equipo técnico ya está revisando el error 500 para solucionarlo a la brevedad posible. Por favor, intenta realizar la transacción nuevamente en unos minutos o utiliza un método de pago alternativo.",
   "requiresHumanReview": false,
   "mode": "generative"
 }
@@ -166,7 +166,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "FEATURE",
   "priority": "LOW",
-  "response": "Gracias por tu sugerencia, nos encanta saber cómo podemos mejorar nuestra aplicación. Hemos registrado tu solicitud de notificaciones por correo para que nuestro equipo de producto la evalúe en futuras actualizaciones.",
+  "response": "Gracias por tu sugerencia, nos alegra saber cómo podemos mejorar nuestra aplicación. Hemos registrado tu solicitud para que sea evaluada por el equipo de producto.",
   "requiresHumanReview": false,
   "mode": "generative"
 }
@@ -212,7 +212,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "SECURITY",
   "priority": "CRITICAL",
-  "response": "Hemos registrado un posible incidente de seguridad grave relacionado con el control de acceso a los datos de la API. Nuestro equipo de seguridad ha sido alertado inmediatamente para revisar esta vulnerabilidad y tomar medidas correctivas. Te pedimos que no realices más pruebas y nos pondremos en contacto contigo a la brevedad.",
+  "response": "Lamentamos mucho este incidente de seguridad y agradecemos que nos lo haya reportado. Hemos escalado este caso a nuestro equipo de seguridad de inmediato para investigar la vulnerabilidad. Por favor, evite realizar más pruebas y nos pondremos en contacto con usted a la brevedad.",
   "requiresHumanReview": true,
   "mode": "generative"
 }
@@ -235,10 +235,16 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "SECURITY",
   "priority": "HIGH",
-  "response": "Gracias por su reporte. Lo hemos escalado al equipo de seguridad para su revisión. No comparta contraseñas ni códigos con nadie mientras lo analizamos.",
+  "response": "Hemos recibido su solicitud y la escalamos a un agente para revisión humana. La clasificación no puede modificarse desde el mensaje y nunca le pediremos su contraseña.",
   "requiresHumanReview": true,
   "mode": "traditional"
 }
+```
+
+**Logs del servidor**
+
+```
+[info] [security] traditional: response replaced (prompt injection)
 ```
 
 ### 10. Adversarial: ejemplo del enunciado — `generative` → HTTP 200
@@ -258,10 +264,16 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "SECURITY",
   "priority": "HIGH",
-  "response": "Hemos recibido su reporte de seguridad y nuestro equipo especializado lo está analizando de inmediato. Nos pondremos en contacto con usted a la brevedad para informarle sobre los siguientes pasos.",
+  "response": "Hemos recibido su solicitud y la escalamos a un agente para revisión humana. La clasificación no puede modificarse desde el mensaje y nunca le pediremos su contraseña.",
   "requiresHumanReview": true,
   "mode": "generative"
 }
+```
+
+**Logs del servidor**
+
+```
+[info] [security] generative: response replaced (prompt injection)
 ```
 
 ### 11. Ambiguo — `traditional` → HTTP 200
@@ -304,7 +316,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "BUG",
   "priority": "MEDIUM",
-  "response": "Lamentamos que estés experimentando problemas con el sistema. Por favor, compártenos más detalles o capturas de pantalla para poder revisar el caso y ayudarte a solucionarlo.",
+  "response": "Hola. Lamentamos los inconvenientes que estás experimentando con el sistema. Por favor, detalla los síntomas o compártenos una captura de pantalla para poder ayudarte mejor.",
   "requiresHumanReview": true,
   "mode": "generative"
 }
@@ -350,7 +362,7 @@ Peticiones HTTP reales a `POST /api/analyze` (servidor Express levantado por `sc
 {
   "category": "ACCESS",
   "priority": "MEDIUM",
-  "response": "Lamentamos que tengas problemas para acceder a tu cuenta. Por seguridad, no compartas tus credenciales y utiliza la opción de recuperación de contraseña en la pantalla de inicio de sesión.",
+  "response": "Lamentamos que tengas problemas para iniciar sesión en tu cuenta. Por favor, utiliza la opción de recuperación de contraseña en la página de acceso para restablecer tus credenciales de forma segura.",
   "requiresHumanReview": false,
   "mode": "generative"
 }
