@@ -35,7 +35,7 @@ Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs
 
 ## Requisitos
 
-- Node.js ≥ 22
+- Node.js ≥ 22.12 (versión mínima que soporta Vitest 5)
 - Para el motor generativo: una API key de Gemini (https://aistudio.google.com/api-keys, plan gratuito) **o** Ollama instalado con un modelo descargado (`ollama pull qwen2.5:3b`).
 
 ## Configuración (`.env`)
