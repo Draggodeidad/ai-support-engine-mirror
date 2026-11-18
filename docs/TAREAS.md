@@ -1,5 +1,10 @@
 # Reparto de tareas
 
+> **Estado: completado.** Todas las tareas de este plan están terminadas e integradas en `main`; la referencia de la entrega es el [README](../README.md). Algunos nombres cambiaron respecto al plan:
+> - Evidencia HTTP: [`results/evidence/api-evidence-gemini.md`](../results/evidence/api-evidence-gemini.md) y [`api-evidence-ollama.md`](../results/evidence/api-evidence-ollama.md) (con sus `.json`), en lugar de `evidence.md`/`evidence.json`. Incluyen 7 casos en ambos motores y 9 casos de error.
+> - Comparativa: [`results/results.md`](../results/results.md) y [`results/comparison.json`](../results/comparison.json) (17 casos); la tabla resumen y la conclusión están en el README.
+> - Reglas del motor tradicional: [`docs/motor-tradicional.md`](motor-tradicional.md).
+
 | Quién | Tarea | Peso en rúbrica | Archivos que posee |
 |---|---|---|---|
 | Draggodeidad | API, motor generativo (Gemini + Ollama), validación y seguridad, script comparativo, README | 30% + 20% + 10% | `src/app.js`, `src/server.js`, `src/engines/generative/**`, `src/security.js`, `scripts/compare.js`, `README.md` |
