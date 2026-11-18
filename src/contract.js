@@ -1,10 +1,10 @@
-// Contrato compartido entre la API y ambos motores.
+// Contrato compartido entre la API y los motores.
 // Cualquier motor debe exportar: async analyze(message: string) => EngineResult
 import { z } from 'zod';
 
 export const CATEGORIES = ['ACCESS', 'BUG', 'FEATURE', 'SECURITY'];
 export const PRIORITIES = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
-export const MODES = ['traditional', 'generative'];
+export const MODES = ['traditional', 'generative', 'ml'];
 
 export const MAX_MESSAGE_LENGTH = 2000;
 

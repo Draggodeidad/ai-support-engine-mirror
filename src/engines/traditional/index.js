@@ -95,8 +95,8 @@ const SECURITY_CRITICAL = [
 ];
 
 // Respuestas predeterminadas. No prometen plazos ni acciones que el sistema no garantiza
-// y nunca piden contraseñas.
-const RESPONSES = {
+// y nunca piden contraseñas. El motor ML también las usa (solo clasifica, no redacta).
+export const RESPONSES = {
   ACCESS: {
     LOW: 'Gracias por escribirnos. Puede recuperar el acceso con la opción "¿Olvidó su contraseña?" en la pantalla de inicio de sesión.',
     MEDIUM: 'Lamentamos el inconveniente. Verifique sus credenciales y utilice la recuperación de contraseña si es necesario; si el problema continúa, indíquenos el mensaje de error que aparece.',

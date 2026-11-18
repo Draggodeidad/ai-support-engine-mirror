@@ -1,7 +1,9 @@
-// Ejecuta ambos motores sobre tests/cases.json usando el mismo flujo que la API
+// Ejecuta los motores sobre tests/cases.json usando el mismo flujo que la API
 // (motor -> validación -> política de seguridad) y genera la tabla comparativa.
-// Uso: npm run compare                 (ambos motores)
-//      npm run compare -- traditional  (solo uno)
+// Uso: npm run compare                 (todos los motores -> results/results.md y comparison.json)
+//      npm run compare -- ml           (solo uno -> results/results-ml.md y comparison-ml.json,
+//                                       para no sobrescribir la comparativa completa)
+// El modo ml necesita el microservicio levantado (ver ml-service/).
 // Variable opcional: COMPARE_DELAY_MS (pausa entre llamadas generativas, por el límite del plan gratuito)
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'node:timers/promises';
@@ -72,10 +74,11 @@ const meta = {
   model: provider === 'ollama' ? process.env.OLLAMA_MODEL : process.env.GEMINI_MODEL,
 };
 await mkdir(outDir, { recursive: true });
-await writeFile(new URL('comparison.json', outDir), JSON.stringify({ ...meta, summary, rows }, null, 2));
-await writeFile(new URL('results.md', outDir), toMarkdown(rows, summary, meta));
+const suffix = requested ? `-${requested}` : '';
+await writeFile(new URL(`comparison${suffix}.json`, outDir), JSON.stringify({ ...meta, summary, rows }, null, 2));
+await writeFile(new URL(`results${suffix}.md`, outDir), toMarkdown(rows, summary, meta));
 console.log('\nResumen:', summary);
-console.log('Escrito results/comparison.json y results/results.md');
+console.log(`Escrito results/comparison${suffix}.json y results/results${suffix}.md`);
 
 async function withRateLimitRetry(fn, retries = 4) {
   for (let i = 0; ; i++) {

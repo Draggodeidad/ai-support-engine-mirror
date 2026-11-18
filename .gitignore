@@ -6,3 +6,9 @@ node_modules/
 .DS_Store
 coverage/
 results/*.raw.json
+
+# ml-service: entorno virtual y modelo entrenado (se regenera con `python train.py`)
+ml-service/.venv/
+ml-service/models/*.joblib
+__pycache__/
+.pytest_cache/
