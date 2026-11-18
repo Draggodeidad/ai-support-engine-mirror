@@ -43,7 +43,7 @@ Solo toca estos archivos para evitar conflictos: `src/engines/traditional/**`, `
    npm run dev
    curl -X POST localhost:3000/api/analyze -H 'Content-Type: application/json' \
      -d '{"message":"No puedo iniciar sesión","mode":"traditional"}'
-   npm run compare -- traditional   # genera results/results.md solo con tu motor
+   npm run compare -- traditional   # genera results/results-traditional.md solo con tu motor
    ```
 5. Commits pequeños, `git push -u origin feat/traditional-engine` y abre un **Pull Request a `main`**. Avisa cuando esté listo para hacer la comparativa juntos.
 
