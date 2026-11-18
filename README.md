@@ -5,7 +5,7 @@ Prototipo de clasificación inteligente de solicitudes de soporte con dos motore
 - **traditional**: IA simbólica basada en reglas y palabras clave (sin modelos generativos).
 - **generative**: LLM real, configurable entre **Gemini** (Google AI Studio, plan gratuito) y **Ollama** (local).
 
-Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs/TAREAS.md`](docs/TAREAS.md)
+Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs/TAREAS.md`](docs/TAREAS.md) · Reglas del motor tradicional: [`docs/motor-tradicional.md`](docs/motor-tradicional.md)
 
 ## Equipo
 
@@ -27,7 +27,7 @@ Enunciado completo: [`docs/reto.md`](docs/reto.md) · Reparto del equipo: [`docs
 
 | Requerimiento | Implementación |
 |---|---|
-| R1. Motor tradicional (4 categorías, 4 prioridades, respuesta predeterminada, sin LLM) | [`src/engines/traditional/index.js`](src/engines/traditional/index.js): diccionarios con pesos y raíces, prioridad base + modificadores, respuestas por categoría y prioridad |
+| R1. Motor tradicional (4 categorías, 4 prioridades, respuesta predeterminada, sin LLM) | [`src/engines/traditional/index.js`](src/engines/traditional/index.js): diccionarios con pesos y raíces, prioridad base + modificadores, respuestas por categoría y prioridad ([explicación](docs/motor-tradicional.md)) |
 | R2. Motor generativo (interpreta, clasifica, prioriza, responde, JSON) | [`src/engines/generative/`](src/engines/generative): Gemini (`gemini-3.5-flash-lite`) u Ollama (`qwen2.5:3b`) con salida JSON estructurada |
 | R3. API `POST /api/analyze` con `mode` y contrato común | [`src/app.js`](src/app.js) + [`src/contract.js`](src/contract.js): ambos motores pasan por el mismo schema de respuesta |
 | R4. Validación y seguridad | Validación Zod de entrada, validación de la salida del LLM con reintento, errores 4xx/5xx sin detalles internos, redacción de secretos, defensa contra prompt injection y revisión humana obligatoria en seguridad ([`src/security.js`](src/security.js)) |
@@ -108,6 +108,14 @@ curl -X POST localhost:3000/api/analyze -H 'Content-Type: application/json' \
 
 ### `GET /health`
 `{ "status": "ok" }`
+
+## Motor tradicional
+
+`src/engines/traditional/` (explicación completa con ejemplos en [`docs/motor-tradicional.md`](docs/motor-tradicional.md)):
+1. **Normaliza** el texto (minúsculas, sin tildes ni puntuación) y **suma puntajes** por categoría con diccionarios de raíces y frases con peso; `SECURITY` tiene los pesos más altos y gana si suma 4 o más.
+2. **Prioridad**: base por categoría (`FEATURE`→`LOW`, `ACCESS`/`BUG`→`MEDIUM`, `SECURITY`→`HIGH`) más modificadores ("urgente", "caído", "todos los usuarios" suben; "cuando puedan", "sugerencia" bajan). Explotación o fuga de datos ⇒ `CRITICAL`.
+3. **Respuesta predeterminada** por categoría y prioridad, sin pedir contraseñas.
+4. **Revisión humana** si es `SECURITY` o si la clasificación es dudosa (poco puntaje o empate cercano); sin coincidencias se asume `BUG` con revisión humana.
 
 ## Motor generativo
 
