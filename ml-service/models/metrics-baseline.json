@@ -1,0 +1,291 @@
+{
+  "trainedAt": "2026-11-23T23:01:57+00:00",
+  "rows": 240,
+  "sklearnVersion": "1.9.1",
+  "algorithm": "TF-IDF (palabras 1-2) + LogisticRegression (línea base)",
+  "category": {
+    "cvAccuracyMean": 0.8917,
+    "cvAccuracyStd": 0.0404,
+    "holdoutAccuracy": 0.9583,
+    "holdoutReport": {
+      "ACCESS": {
+        "precision": 0.9230769230769231,
+        "recall": 1.0,
+        "f1-score": 0.96,
+        "support": 12.0
+      },
+      "BUG": {
+        "precision": 1.0,
+        "recall": 0.9166666666666666,
+        "f1-score": 0.9565217391304348,
+        "support": 12.0
+      },
+      "FEATURE": {
+        "precision": 0.9230769230769231,
+        "recall": 1.0,
+        "f1-score": 0.96,
+        "support": 12.0
+      },
+      "SECURITY": {
+        "precision": 1.0,
+        "recall": 0.9166666666666666,
+        "f1-score": 0.9565217391304348,
+        "support": 12.0
+      },
+      "accuracy": 0.9583333333333334,
+      "macro avg": {
+        "precision": 0.9615384615384616,
+        "recall": 0.9583333333333333,
+        "f1-score": 0.9582608695652173,
+        "support": 48.0
+      },
+      "weighted avg": {
+        "precision": 0.9615384615384616,
+        "recall": 0.9583333333333334,
+        "f1-score": 0.9582608695652174,
+        "support": 48.0
+      }
+    },
+    "holdoutConfusionMatrix": {
+      "labels": [
+        "ACCESS",
+        "BUG",
+        "FEATURE",
+        "SECURITY"
+      ],
+      "matrix": [
+        [
+          12,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          11,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          11
+        ]
+      ]
+    }
+  },
+  "priority": {
+    "cvAccuracyMean": 0.7958,
+    "cvAccuracyStd": 0.0358,
+    "holdoutAccuracy": 0.8333,
+    "holdoutReport": {
+      "LOW": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 10.0
+      },
+      "MEDIUM": {
+        "precision": 1.0,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.9090909090909091,
+        "support": 12.0
+      },
+      "HIGH": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1-score": 0.8,
+        "support": 14.0
+      },
+      "CRITICAL": {
+        "precision": 0.9166666666666666,
+        "recall": 0.9166666666666666,
+        "f1-score": 0.9166666666666666,
+        "support": 12.0
+      },
+      "accuracy": 0.8333333333333334,
+      "macro avg": {
+        "precision": 0.8958333333333333,
+        "recall": 0.8125,
+        "f1-score": 0.8231060606060606,
+        "support": 48.0
+      },
+      "weighted avg": {
+        "precision": 0.8819444444444443,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.8286616161616162,
+        "support": 48.0
+      }
+    },
+    "holdoutConfusionMatrix": {
+      "labels": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "matrix": [
+        [
+          5,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          10,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          11
+        ]
+      ]
+    }
+  },
+  "evaluationCases": {
+    "summary": {
+      "total": 17,
+      "categoryAccuracyPct": 58.8,
+      "priorityAccuracyPct": 58.8,
+      "fullAccuracyPct": 41.2
+    },
+    "rows": [
+      {
+        "id": 1,
+        "expected": "ACCESS/MEDIUM",
+        "predicted": "ACCESS/MEDIUM",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 2,
+        "expected": "SECURITY/CRITICAL",
+        "predicted": "BUG/CRITICAL",
+        "categoryCorrect": false,
+        "priorityCorrect": true
+      },
+      {
+        "id": 3,
+        "expected": "BUG/MEDIUM",
+        "predicted": "BUG/HIGH",
+        "categoryCorrect": true,
+        "priorityCorrect": false
+      },
+      {
+        "id": 4,
+        "expected": "FEATURE/LOW",
+        "predicted": "SECURITY/HIGH",
+        "categoryCorrect": false,
+        "priorityCorrect": false
+      },
+      {
+        "id": 5,
+        "expected": "ACCESS/HIGH",
+        "predicted": "ACCESS/HIGH",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 6,
+        "expected": "BUG/MEDIUM",
+        "predicted": "FEATURE/CRITICAL",
+        "categoryCorrect": false,
+        "priorityCorrect": false
+      },
+      {
+        "id": 7,
+        "expected": "FEATURE/MEDIUM",
+        "predicted": "ACCESS/MEDIUM",
+        "categoryCorrect": false,
+        "priorityCorrect": true
+      },
+      {
+        "id": 8,
+        "expected": "SECURITY/CRITICAL",
+        "predicted": "SECURITY/CRITICAL",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 9,
+        "expected": "SECURITY/HIGH",
+        "predicted": "SECURITY/HIGH",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 10,
+        "expected": "BUG/MEDIUM",
+        "predicted": "BUG/MEDIUM",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 11,
+        "expected": "FEATURE/LOW",
+        "predicted": "FEATURE/LOW",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      },
+      {
+        "id": 12,
+        "expected": "BUG/CRITICAL",
+        "predicted": "BUG/HIGH",
+        "categoryCorrect": true,
+        "priorityCorrect": false
+      },
+      {
+        "id": 13,
+        "expected": "FEATURE/LOW",
+        "predicted": "FEATURE/MEDIUM",
+        "categoryCorrect": true,
+        "priorityCorrect": false
+      },
+      {
+        "id": 14,
+        "expected": "ACCESS/MEDIUM",
+        "predicted": "BUG/LOW",
+        "categoryCorrect": false,
+        "priorityCorrect": false
+      },
+      {
+        "id": 15,
+        "expected": "BUG/MEDIUM",
+        "predicted": "FEATURE/MEDIUM",
+        "categoryCorrect": false,
+        "priorityCorrect": true
+      },
+      {
+        "id": 16,
+        "expected": "SECURITY/HIGH",
+        "predicted": "ACCESS/MEDIUM",
+        "categoryCorrect": false,
+        "priorityCorrect": false
+      },
+      {
+        "id": 17,
+        "expected": "SECURITY/CRITICAL",
+        "predicted": "SECURITY/CRITICAL",
+        "categoryCorrect": true,
+        "priorityCorrect": true
+      }
+    ]
+  }
+}
