@@ -139,6 +139,7 @@ Tercer motor, de **Machine Learning clásico** (sin LLM), en un servicio aparte:
 cd ml-service
 python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
 .venv/bin/python train.py                 # entrena, evalúa y guarda models/model.joblib + models/metrics.json
+.venv/bin/python train.py --pipeline baseline  # línea base (TF-IDF 1-2 + LogisticRegression), no reemplaza el modelo
 .venv/bin/uvicorn app:app --port 8000     # levanta el servicio
 .venv/bin/python -m pytest                # pruebas del servicio
 cd .. && npm run compare -- ml            # comparativa -> results/results-ml.md
