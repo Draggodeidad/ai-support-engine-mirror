@@ -140,6 +140,8 @@ cd ml-service
 python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
 .venv/bin/python train.py                 # entrena, evalúa y guarda models/model.joblib + models/metrics.json
 .venv/bin/python train.py --pipeline baseline  # línea base (TF-IDF 1-2 + LogisticRegression), no reemplaza el modelo
+.venv/bin/python evaluate.py              # reporte, matriz de confusión y predicción de un mensaje nuevo (línea base)
+.venv/bin/python evaluate.py --message "No puedo iniciar sesión"  # predice otro mensaje
 .venv/bin/uvicorn app:app --port 8000     # levanta el servicio
 .venv/bin/python -m pytest                # pruebas del servicio
 cd .. && npm run compare -- ml            # comparativa -> results/results-ml.md
@@ -181,6 +183,7 @@ results/                   # Evidencias y tabla comparativa
 ml-service/                # Microservicio Python (FastAPI + scikit-learn)
   data/tickets.csv         # Dataset de entrenamiento (240 filas)
   train.py                 # Entrena y evalúa -> models/
+  evaluate.py              # Evaluación 80/20 y predicción de un mensaje, sin guardar nada
   app.py                   # API: POST /predict, GET /health
   model.py / preprocessing.py
   tests/                   # pytest
