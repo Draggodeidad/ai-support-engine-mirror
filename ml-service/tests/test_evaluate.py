@@ -1,6 +1,6 @@
 import pytest
 
-from evaluate import fit_holdout, print_evaluation
+from evaluate import DEFAULT_MESSAGE, fit_holdout, predict_message, print_evaluation
 from model import build_baseline_pipeline
 from train import DEFAULT_DATA_PATH, load_dataset
 
@@ -23,3 +23,11 @@ def test_print_evaluation_shows_report_and_matrix(holdout, capsys):
     assert "Matriz de confusión" in output
     for label in holdout[0].classes_:
         assert label in output
+
+
+def test_predict_message_returns_top_class_and_its_probability(holdout):
+    model = holdout[0]
+    category, confidence = predict_message(model, DEFAULT_MESSAGE)
+    probabilities = model.predict_proba([DEFAULT_MESSAGE])[0]
+    assert category == model.classes_[probabilities.argmax()]
+    assert confidence == round(float(probabilities.max()), 3)
