@@ -37,6 +37,22 @@ def build_pipeline() -> Pipeline:
     )
 
 
+def build_baseline_pipeline() -> Pipeline:
+    """Línea base sin ajustes: TF-IDF de palabras (1-2 gramas) -> regresión logística."""
+    return Pipeline(
+        [
+            ("tfidf", TfidfVectorizer(ngram_range=(1, 2))),
+            ("classifier", LogisticRegression(max_iter=1000)),
+        ]
+    )
+
+
+PIPELINES = {
+    "default": (build_pipeline, "TF-IDF (palabras 1-2 + caracteres 3-5) + LogisticRegression"),
+    "baseline": (build_baseline_pipeline, "TF-IDF (palabras 1-2) + LogisticRegression (línea base)"),
+}
+
+
 def save_bundle(bundle: dict, path: Path = DEFAULT_MODEL_PATH) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(bundle, path)
