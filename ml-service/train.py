@@ -3,6 +3,7 @@
 Uso (desde ml-service/):
     python train.py
     python train.py --data data/tickets.csv --out models/model.joblib
+    python train.py --pipeline baseline   # guarda models/baseline.joblib + metrics-baseline.json
 
 Evaluación:
   1. Validación cruzada estratificada (5 particiones) sobre el dataset.
@@ -22,7 +23,7 @@ from sklearn import __version__ as sklearn_version
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
 
-from model import BASE_DIR, CATEGORIES, DEFAULT_MODEL_PATH, PRIORITIES, build_pipeline, save_bundle
+from model import BASE_DIR, CATEGORIES, DEFAULT_MODEL_PATH, PIPELINES, PRIORITIES, save_bundle
 from preprocessing import normalize_text
 
 DEFAULT_DATA_PATH = BASE_DIR / "data" / "tickets.csv"
@@ -52,7 +53,7 @@ def check_no_leakage(data: pd.DataFrame, cases: list[dict]) -> None:
         raise SystemExit(f"El dataset contiene casos reservados para evaluación: {leaked}")
 
 
-def evaluate(data: pd.DataFrame, cases: list[dict]) -> dict:
+def evaluate(data: pd.DataFrame, build_pipeline) -> dict:
     metrics = {}
     folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
 
@@ -125,8 +126,15 @@ def evaluate_cases(bundle: dict, cases: list[dict]) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Entrena los modelos de clasificación de tickets")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
-    parser.add_argument("--out", type=Path, default=DEFAULT_MODEL_PATH)
+    parser.add_argument("--out", type=Path, default=None)
+    parser.add_argument("--pipeline", choices=sorted(PIPELINES), default="default")
     args = parser.parse_args()
+
+    # La línea base nunca escribe sobre el modelo ni las métricas que usa el servicio.
+    is_default = args.pipeline == "default"
+    out = args.out or (DEFAULT_MODEL_PATH if is_default else DEFAULT_MODEL_PATH.with_name(f"{args.pipeline}.joblib"))
+    metrics_name = "metrics.json" if is_default else f"metrics-{args.pipeline}.json"
+    build_pipeline, algorithm = PIPELINES[args.pipeline]
 
     data = load_dataset(args.data)
     cases = json.loads(EVAL_CASES_PATH.read_text(encoding="utf-8")) if EVAL_CASES_PATH.exists() else []
@@ -134,7 +142,7 @@ def main() -> None:
     print(f"Dataset: {len(data)} filas")
     print(pd.crosstab(data["category"], data["priority"]).reindex(columns=PRIORITIES, fill_value=0).to_string())
 
-    metrics = evaluate(data, cases)
+    metrics = evaluate(data, build_pipeline)
 
     # Modelo final: se entrena con todo el dataset.
     bundle = {
@@ -144,18 +152,18 @@ def main() -> None:
             "trainedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "rows": int(len(data)),
             "sklearnVersion": sklearn_version,
-            "algorithm": "TF-IDF (palabras 1-2 + caracteres 3-5) + LogisticRegression",
+            "algorithm": algorithm,
         },
     }
     if cases:
         metrics["evaluationCases"] = evaluate_cases(bundle, cases)
 
-    save_bundle(bundle, args.out)
-    metrics_path = args.out.parent / "metrics.json"
+    save_bundle(bundle, out)
+    metrics_path = out.parent / metrics_name
     metrics_path.write_text(
         json.dumps({**bundle["metadata"], **metrics}, indent=2, ensure_ascii=False), encoding="utf-8"
     )
-    print(f"\nModelo guardado en {args.out}\nMétricas guardadas en {metrics_path}")
+    print(f"\nModelo guardado en {out}\nMétricas guardadas en {metrics_path}")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app import create_app
-from model import build_pipeline, predict, save_bundle
+from model import build_baseline_pipeline, build_pipeline, predict, save_bundle
 from preprocessing import normalize_text
 
 TINY = pd.DataFrame(
@@ -79,6 +79,16 @@ def test_predict_without_model_returns_503(tmp_path):
         res = c.post("/predict", json={"message": "hola mundo"})
         assert res.status_code == 503
         assert res.json()["error"]["code"] == "MODEL_NOT_LOADED"
+
+
+def test_baseline_pipeline_configuration_and_fit():
+    model = build_baseline_pipeline()
+    assert list(model.named_steps) == ["tfidf", "classifier"]
+    assert model.named_steps["tfidf"].ngram_range == (1, 2)
+    assert model.named_steps["classifier"].max_iter == 1000
+
+    model.fit(TINY["message"], TINY["category"])
+    assert set(model.classes_) == {"ACCESS", "BUG", "FEATURE", "SECURITY"}
 
 
 def test_predict_helper_confidence_is_max_probability(model_path):
